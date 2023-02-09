@@ -8,6 +8,37 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!--Speechly Button -->
+  <script type="text/javascript" src="https://unpkg.com/@speechly/browser-ui/core/push-to-talk-button.js"></script>
+
+  <push-to-talk-button
+    appid="fbbf3a3a-bd66-4540-9b24-129b63037b31"
+    placement="bottom"
+    hide="false"
+    capturekey=" "
+    intro="Push to talk"
+    size="80px" >
+  </push-to-talk-button>
+
+<!--Speechly text transcript-->
+  <script type="text/javascript" src="https://unpkg.com/@speechly/browser-ui/core/big-transcript.js"></script>
+
+  <big-transcript
+    formattext="false" >
+  </big-transcript>
+
+  <!--JavaScript so that Button works-->
+  <script>
+    document
+      .getElementsByTagName("push-to-talk-button")[0]
+      .addEventListener("speechsegment", (e) => {
+        const speechSegment = e.detail;
+        if (speechSegment.intent.isFinal) {
+          document.getElementById(speechSegment.intent["intent"]).click();
+        }
+  });
+  </script>
+
   <app-root></app-root>
 </body>
 </html>
