@@ -4,8 +4,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -13,6 +11,8 @@ import { StockComponent } from './stock/stock.component';
 import { ArticleComponent } from './article/article.component';
 import { GoodsComponent } from './goods/goods.component';
 import { OrderComponent } from './order/order.component';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
   declarations: [
@@ -22,13 +22,15 @@ import { OrderComponent } from './order/order.component';
     ArticleComponent,
     GoodsComponent,
     OrderComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
     MatSortModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

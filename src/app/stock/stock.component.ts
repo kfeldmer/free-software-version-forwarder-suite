@@ -115,6 +115,8 @@ export class StockComponent {
       }
     });
   }
+
+  searchText = '';
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

@@ -1,3 +1,4 @@
+<input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
 <table matSort (matSortChange)="sortData($event)">
     <tr>
       <th mat-sort-header="index">Index</th>
@@ -12,7 +13,7 @@
       <th mat-sort-header="storingDate">Storing Date</th>
     </tr>
   
-    <tr *ngFor="let data of sortedData">
+    <tr *ngFor="let data of sortedData | search: searchText">
       <td>{{data.index}}</td>
       <td>{{data.articleNumber}}</td>
       <td>{{data.description}}</td>
