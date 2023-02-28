@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {Sort} from '@angular/material/sort';
+import { Router } from '@angular/router';
+import alanBtn from '@alan-ai/alan-sdk-web';
+
 
 export interface StockTable {
   index: number;
@@ -76,9 +79,25 @@ export class StockComponent {
 
   sortedData: StockTable[];
 
-  constructor() {
+  searchText = '';
+  alanBtnInstance;
+
+
+  constructor(private router: Router) {
     this.sortedData = this.stockTable.slice();
-  }
+    this.alanBtnInstance = alanBtn({
+      key: '2ec5b4d0f7c942fe209c255d41bee8d62e956eca572e1d8b807a3e2338fdd0dc/stage',
+      onCommand: (commandData: any) => {
+        if (commandData.command === 'navigation' && commandData.route) {
+          this.router.navigateByUrl(commandData.route);
+        }
+        else if (commandData.command === 'setType') {
+          console.log(commandData.type);
+          this.searchText = commandData.type;
+        }
+      },
+    });
+  }  
 
   sortData(sort: Sort) {
     const data = this.stockTable.slice();
@@ -115,8 +134,6 @@ export class StockComponent {
       }
     });
   }
-
-  searchText = '';
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
