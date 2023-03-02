@@ -5,15 +5,15 @@ import alanBtn from '@alan-ai/alan-sdk-web';
 
 
 export interface StockTable {
-  index: number;
-  articleNumber: number;
+  index: string;
+  articleNumber: string;
   description: string;
-  batch: number;
+  batch: string;
   variant: string;
-  weight: number;
+  weight: string;
   location: string;
-  pid: number;
-  quantity: number;
+  pid: string;
+  quantity: string;
   storingDate: string;
 }
 
@@ -26,56 +26,85 @@ export interface StockTable {
   styleUrls: ['./stock.component.scss']
 })
 export class StockComponent {
+  index: string = '';
+  articleNumber: string = '';
+  description: string = '';
+  batch: string = '';
+  variant: string = '';
+  weight: string = '';
+  location: string = '';
+  pid: string = '';
+  quantity: string = '';
+  storingDate: string = '';
+
   stockTable: StockTable[] = [
     {
-      index: 1,
-      articleNumber: 202028,
+      index: '1',
+      articleNumber: '202028',
       description: 'calculator',
-      batch: 24685,
+      batch: '24685',
       variant: 'red',
-      weight: 0.03,
+      weight: '0.03',
       location: 'BEW',
-      pid: 201910,
-      quantity: 1,
+      pid: '201910',
+      quantity: '1',
       storingDate: '19.10.2022'
     },
     {
-      index: 2,
-      articleNumber: 202023,
+      index: '2',
+      articleNumber: '202023',
       description: 'pen',
-      batch: 24685,
+      batch: '24685',
       variant: 'red',
-      weight: 0.01,
+      weight: '0.01',
       location: 'BVE',
-      pid: 9000113,
-      quantity: 2,
+      pid: '9000113',
+      quantity: '2',
       storingDate: '19.10.2022'
     },
     {
-      index: 3,
-      articleNumber: 202016,
+      index: '3',
+      articleNumber: '202016',
       description: 'safety sign',
-      batch: 24685,
+      batch: '24685',
       variant: 'blue',
-      weight: 0.31,
+      weight: '0.31',
       location: 'BVE',
-      pid: 9000114,
-      quantity: 1,
+      pid: '9000114',
+      quantity: '1',
       storingDate: '18.10.2022'
     },
     {
-      index: 4,
-      articleNumber: 202018,
+      index: '4',
+      articleNumber: '202018',
       description: 'suitcase',
-      batch: 87495,
+      batch: '87495',
       variant: 'yellow',
-      weight: 2.91,
+      weight: '2.91',
       location: 'FBL020101',
-      pid: 201587,
-      quantity: 3,
+      pid: '201587',
+      quantity: '3',
       storingDate: '19.10.2022'
     }
   ];
+
+  addItem() {
+    this.stockTable.push({
+      index: this.index,
+      articleNumber: this.articleNumber,
+      description: this.description,
+      batch: this.batch,
+      variant: this.variant,
+      weight: this.weight,
+      location: this.location,
+      pid: this.pid,
+      quantity: this.quantity,
+      storingDate: this.storingDate
+    });
+    
+    this.sortedData = this.stockTable.slice();
+  }
+  
 
   sortedData: StockTable[];
 

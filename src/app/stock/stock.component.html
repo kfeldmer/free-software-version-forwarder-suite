@@ -1,5 +1,5 @@
 <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
-<table matSort (matSortChange)="sortData($event)">
+<table class="bordered" matSort (matSortChange)="sortData($event)">
     <tr>
       <th mat-sort-header="index">Index</th>
       <th mat-sort-header="articleNumber">Article Number</th>
@@ -26,3 +26,88 @@
       <td>{{data.storingDate}}</td>
     </tr>
   </table>
+
+<br><br>
+<!--
+<div class="container">
+  <form>
+    <label>Index</label>
+    <input type="text" [(ngModel)]="index"><br>
+    <label>Article Number</label>
+    <input type="text" [(ngModel)]="articleNumber"><br>
+    <label>Description</label>
+    <input type="text" [(ngModel)]="description"><br>
+    <label>Batch</label>
+    <input type="text" [(ngModel)]="batch"><br>
+    <label>Variant</label>
+    <input type="text" [(ngModel)]="variant"><br>
+    <label>Weight</label>
+    <input type="text" [(ngModel)]="weight"><br>
+    <label>Location</label>
+    <input type="text" [(ngModel)]="location"><br>
+    <label>PID</label>
+    <input type="text" [(ngModel)]="pid"><br>
+    <label>Quantity</label>
+    <input type="text" [(ngModel)]="quantity"><br>
+    <label>Storing Date</label>
+    <input type="text" [(ngModel)]="storingDate"><br>
+    <button (click)="addItem()"> Add </button>
+  </form>
+</div> 
+Index: <input type="text" [(ngModel)]="index"><br>
+Article Number: <input type="text" [(ngModel)]="articleNumber"><br>
+Description: <input type="text" [(ngModel)]="description"><br>
+Batch: <input type="text" [(ngModel)]="batch"><br>
+Variant: <input type="text" [(ngModel)]="variant"><br>
+Weight: <input type="text" [(ngModel)]="weight"><br>
+Location: <input type="text" [(ngModel)]="location"><br>
+PID: <input type="text" [(ngModel)]="pid"><br>
+Quantity: <input type="text" [(ngModel)]="quantity"><br>
+Storing Date: <input type="text" [(ngModel)]="storingDate"><br>
+
+<button (click)="addItem()"> Add </button> -->
+
+<table>
+  <tr>
+    <td>Index:</td>
+    <td><input type="text" [(ngModel)]="index"></td>
+  </tr>
+  <tr>
+    <td>Article Number:</td>
+    <td><input type="text" [(ngModel)]="articleNumber"></td>
+  </tr>
+  <tr>
+    <td>Description:</td>
+    <td><input type="text" [(ngModel)]="description"></td>
+  </tr>
+  <tr>
+    <td>Batch:</td>
+    <td><input type="text" [(ngModel)]="batch"></td>
+  </tr>
+  <tr>
+    <td>Variant:</td>
+    <td><input type="text" [(ngModel)]="variant"></td>
+  </tr>
+  <tr>
+    <td>Weight:</td>
+    <td><input type="text" [(ngModel)]="weight"></td>
+  </tr>
+  <tr>
+    <td>Location:</td>
+    <td><input type="text" [(ngModel)]="location"></td>
+  </tr>
+  <tr>
+    <td>PID:</td>
+    <td><input type="text" [(ngModel)]="pid"></td>
+  </tr>
+  <tr>
+    <td>Quantity:</td>
+    <td><input type="text" [(ngModel)]="quantity"></td>
+  </tr>
+  <tr>
+    <td>Storing Date:</td>
+    <td><input type="text" [(ngModel)]="storingDate"></td>
+  </tr>
+</table>
+
+<button (click)="addItem()"> Add </button>
