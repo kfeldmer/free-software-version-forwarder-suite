@@ -88,9 +88,11 @@ export class StockComponent {
     }
   ];
 
+  descriptions = ["calculator", "pen", "safety sign", "suitcase"];
+
   addItem() {
     this.stockTable.push({
-      index: this.index,
+      index: (this.stockTable.length+1).toString(),
       articleNumber: this.articleNumber,
       description: this.description,
       batch: this.batch,
@@ -103,6 +105,10 @@ export class StockComponent {
     });
     
     this.sortedData = this.stockTable.slice();
+    
+    this.descriptions.push(this.description);
+    let values = this.descriptions;
+    this.alanBtnInstance.setVisualState({values});
   }
   
 
@@ -121,8 +127,22 @@ export class StockComponent {
           this.router.navigateByUrl(commandData.route);
         }
         else if (commandData.command === 'setType') {
-          console.log(commandData.type);
           this.searchText = commandData.type;
+        }
+        else if (commandData.command === 'addItem') {
+          this.stockTable.push({
+            index: (this.stockTable.length+1).toString(),
+            articleNumber: this.articleNumber,
+            description: commandData.item,
+            batch: this.batch,
+            variant: this.variant,
+            weight: this.weight,
+            location: this.location,
+            pid: this.pid,
+            quantity: this.quantity,
+            storingDate: this.storingDate
+          });
+          this.sortedData = this.stockTable.slice();
         }
       },
     });
