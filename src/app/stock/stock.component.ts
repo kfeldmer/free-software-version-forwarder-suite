@@ -88,16 +88,16 @@ export class StockComponent {
     }
   ];
 
-  descriptions = ["calculator", "pen", "safety sign", "suitcase"];
+  descriptions = ["calculator", "pen", "safety sign", "suitcase", "1", "3"];
 
-  addItem() {
+  addItem(description: string, articleNumber: string, batch: string, variant: string, weight: string, location: string, pid: string, quantity: string, storingDate: string) {
     this.stockTable.push({
       index: (this.stockTable.length+1).toString(),
-      articleNumber: this.articleNumber,
-      description: this.description,
-      batch: this.batch,
-      variant: this.variant,
-      weight: this.weight,
+      articleNumber: articleNumber,
+      description: description,
+      batch: batch,
+      variant: variant,
+      weight: weight,
       location: this.location,
       pid: this.pid,
       quantity: this.quantity,
@@ -106,7 +106,7 @@ export class StockComponent {
     
     this.sortedData = this.stockTable.slice();
     
-    this.descriptions.push(this.description);
+    this.descriptions.push(articleNumber, description, batch, variant, weight, location, pid, quantity, storingDate);
     let values = this.descriptions;
     this.alanBtnInstance.setVisualState({values});
   }
@@ -129,23 +129,39 @@ export class StockComponent {
         else if (commandData.command === 'setType') {
           this.searchText = commandData.type;
         }
+        else if (commandData.command === 'addArtNumber') {
+          this.articleNumber = commandData.artNumber;
+        }
+        else if (commandData.command === 'addDescription') {
+          this.description = commandData.description;
+        }
+        else if (commandData.command === 'addBatch') {
+          this.batch = commandData.batch;
+        }
+        else if (commandData.command === 'addVariant') {
+          this.variant = commandData.variant;
+        }
+        else if (commandData.command === 'addWeight') {
+          this.weight = commandData.weight;
+        }
+        else if (commandData.command === 'addLocation') {
+          this.location = commandData.location;
+        }
+        else if (commandData.command === 'addPID') {
+          this.pid = commandData.pid;
+        }
+        else if (commandData.command === 'addDate') {
+          this.storingDate = commandData.date;
+        }
         else if (commandData.command === 'addItem') {
-          this.stockTable.push({
-            index: (this.stockTable.length+1).toString(),
-            articleNumber: this.articleNumber,
-            description: commandData.item,
-            batch: this.batch,
-            variant: this.variant,
-            weight: this.weight,
-            location: this.location,
-            pid: this.pid,
-            quantity: this.quantity,
-            storingDate: this.storingDate
-          });
-          this.sortedData = this.stockTable.slice();
+          let element:HTMLElement = document.getElementById('save') as HTMLElement;
+          element.click();
+        //  this.addItem(commandData.item, commandData.artNumber, commandData.batch, commandData.variant, commandData.weight);
         }
       },
     });
+    let values = this.descriptions;
+    this.alanBtnInstance.setVisualState({values});
   }  
 
   sortData(sort: Sort) {
