@@ -150,6 +150,9 @@ export class StockComponent {
         else if (commandData.command === 'addPID') {
           this.pid = commandData.pid;
         }
+        else if (commandData.command === 'addQuantity') {
+          this.quantity = commandData.quantity;
+        }
         else if (commandData.command === 'addDate') {
           this.storingDate = commandData.date;
         }
