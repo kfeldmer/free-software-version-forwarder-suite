@@ -92,7 +92,8 @@ export class StockComponent {
 
   addItem(description: string, articleNumber: string, batch: string, variant: string, weight: string, location: string, pid: string, quantity: string, storingDate: string) {
     this.stockTable.push({
-      index: (this.stockTable.length+1).toString(),
+    //  index: (this.stockTable.length+1).toString(),
+      index: (parseInt((this.stockTable[this.stockTable.length-1].index))+1).toString(),
       articleNumber: articleNumber,
       description: description,
       batch: batch,
@@ -110,7 +111,26 @@ export class StockComponent {
     let values = this.descriptions;
     this.alanBtnInstance.setVisualState({values});
   }
+
+  clearForm() {
+    this.articleNumber = "";
+    this.description = "";
+    this.batch = "";
+    this.variant = "";
+    this.weight = "";
+    this.location = "";
+    this.pid = "";
+    this.quantity = "";
+    this.storingDate = "";
+  }
   
+  deleteItem(index: string) {
+    for (var i = 0; i < this.stockTable.length; i++) {
+      if (this.stockTable[i].index === index) {
+        this.stockTable.splice(i, 1);
+      }
+    }
+  }
 
   sortedData: StockTable[];
 
@@ -160,6 +180,16 @@ export class StockComponent {
           let element:HTMLElement = document.getElementById('save') as HTMLElement;
           element.click();
         //  this.addItem(commandData.item, commandData.artNumber, commandData.batch, commandData.variant, commandData.weight);
+        }
+        else if (commandData.command === 'clearForm') {
+          this.clearForm();
+        }
+        else if (commandData.command === 'clearSearchbar') {
+          this.searchText = "";
+        }
+        else if (commandData.command === 'deleteItem') { 
+          this.deleteItem(commandData.index);
+          this.sortedData = this.stockTable.slice();
         }
       },
     });
