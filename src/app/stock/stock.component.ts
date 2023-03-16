@@ -88,9 +88,23 @@ export class StockComponent {
     }
   ];
 
-  descriptions = ["calculator", "pen", "safety sign", "suitcase", "1", "3"];
+  descriptions: string[] = [];
 
-  addItem(description: string, articleNumber: string, batch: string, variant: string, weight: string, location: string, pid: string, quantity: string, storingDate: string) {
+  storeItems() {
+    for (var i = 0; i < this.stockTable.length; i++) {
+      this.descriptions.push(this.stockTable[i].articleNumber);
+      this.descriptions.push(this.stockTable[i].description);
+      this.descriptions.push(this.stockTable[i].batch);
+      this.descriptions.push(this.stockTable[i].variant);
+      this.descriptions.push(this.stockTable[i].weight);
+      this.descriptions.push(this.stockTable[i].location);
+      this.descriptions.push(this.stockTable[i].pid);
+      this.descriptions.push(this.stockTable[i].quantity);
+      this.descriptions.push(this.stockTable[i].storingDate);
+    }
+  }
+
+  addItem(articleNumber: string, description: string, batch: string, variant: string, weight: string, location: string, pid: string, quantity: string, storingDate: string) {
     this.stockTable.push({
     //  index: (this.stockTable.length+1).toString(),
       index: (parseInt((this.stockTable[this.stockTable.length-1].index))+1).toString(),
@@ -139,6 +153,7 @@ export class StockComponent {
 
 
   constructor(private router: Router) {
+    this.storeItems();
     this.sortedData = this.stockTable.slice();
     this.alanBtnInstance = alanBtn({
       key: '2ec5b4d0f7c942fe209c255d41bee8d62e956eca572e1d8b807a3e2338fdd0dc/stage',
@@ -179,7 +194,6 @@ export class StockComponent {
         else if (commandData.command === 'addItem') {
           let element:HTMLElement = document.getElementById('save') as HTMLElement;
           element.click();
-        //  this.addItem(commandData.item, commandData.artNumber, commandData.batch, commandData.variant, commandData.weight);
         }
         else if (commandData.command === 'clearForm') {
           this.clearForm();
