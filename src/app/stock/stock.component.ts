@@ -157,11 +157,19 @@ export class StockComponent {
     this.recognition.onresult = (event: any) => {
       const result = event.results[event.resultIndex][0].transcript;
       console.log(result);
+
+      if (result.toLowerCase().includes('go to the article page')) {
+        this.navigateToArticle();
+      }
     };
 
     this.storeItems();
     this.sortedData = this.stockTable.slice();
-  }  
+  }
+
+  navigateToArticle() {
+    this.router.navigate(['/article-grid']);
+  }
 
   startRecognition() {
     // start the speech recognition
