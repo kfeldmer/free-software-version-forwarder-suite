@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
-import alanBtn from '@alan-ai/alan-sdk-web';
 
 
 export interface StockTable {
@@ -16,6 +15,8 @@ export interface StockTable {
   quantity: string;
   storingDate: string;
 }
+
+declare var webkitSpeechRecognition: any; // for Safari compatibility
 
 /**
  * @title Sorting overview
@@ -89,6 +90,7 @@ export class StockComponent {
   ];
 
   descriptions: string[] = [];
+  recognition: any;
 
   storeItems() {
     for (var i = 0; i < this.stockTable.length; i++) {
@@ -122,8 +124,6 @@ export class StockComponent {
     this.sortedData = this.stockTable.slice();
     
     this.descriptions.push(articleNumber, description, batch, variant, weight, location, pid, quantity, storingDate);
-    let values = this.descriptions;
-    this.alanBtnInstance.setVisualState({values});
   }
 
   clearForm() {
@@ -149,68 +149,29 @@ export class StockComponent {
   sortedData: StockTable[];
 
   searchText = '';
-  alanBtnInstance;
-
 
   constructor(private router: Router) {
+  //  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    this.recognition = new webkitSpeechRecognition();
+
+    this.recognition.onresult = (event: any) => {
+      const result = event.results[event.resultIndex][0].transcript;
+      console.log(result);
+    };
+
     this.storeItems();
     this.sortedData = this.stockTable.slice();
-    this.alanBtnInstance = alanBtn({
-      key: '2ec5b4d0f7c942fe209c255d41bee8d62e956eca572e1d8b807a3e2338fdd0dc/stage',
-      onCommand: (commandData: any) => {
-        if (commandData.command === 'navigation' && commandData.route) {
-          this.router.navigateByUrl(commandData.route);
-          console.log("ppls work");
-        }
-        else if (commandData.command === 'setType') {
-          this.searchText = commandData.type;
-        }
-        else if (commandData.command === 'addArtNumber') {
-          this.articleNumber = commandData.artNumber;
-        }
-        else if (commandData.command === 'addDescription') {
-          this.description = commandData.description;
-        }
-        else if (commandData.command === 'addBatch') {
-          this.batch = commandData.batch;
-        }
-        else if (commandData.command === 'addVariant') {
-          this.variant = commandData.variant;
-        }
-        else if (commandData.command === 'addWeight') {
-          this.weight = commandData.weight;
-        }
-        else if (commandData.command === 'addLocation') {
-          this.location = commandData.location;
-        }
-        else if (commandData.command === 'addPID') {
-          this.pid = commandData.pid;
-        }
-        else if (commandData.command === 'addQuantity') {
-          this.quantity = commandData.quantity;
-        }
-        else if (commandData.command === 'addDate') {
-          this.storingDate = commandData.date;
-        }
-        else if (commandData.command === 'addItem') {
-          let element:HTMLElement = document.getElementById('save') as HTMLElement;
-          element.click();
-        }
-        else if (commandData.command === 'clearForm') {
-          this.clearForm();
-        }
-        else if (commandData.command === 'clearSearchbar') {
-          this.searchText = "";
-        }
-        else if (commandData.command === 'deleteItem') { 
-          this.deleteItem(commandData.index);
-          this.sortedData = this.stockTable.slice();
-        }
-      },
-    });
-    let values = this.descriptions;
-    this.alanBtnInstance.setVisualState({values});
   }  
+
+  startRecognition() {
+    // start the speech recognition
+    this.recognition.start();
+  }
+
+  stopRecognition() {
+    // stop the speech recognition
+    this.recognition.stop();
+  }
 
   sortData(sort: Sort) {
     const data = this.stockTable.slice();
