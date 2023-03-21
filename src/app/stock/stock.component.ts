@@ -160,6 +160,7 @@ export class StockComponent {
       onCommand: (commandData: any) => {
         if (commandData.command === 'navigation' && commandData.route) {
           this.router.navigateByUrl(commandData.route);
+          console.log("ppls work");
         }
         else if (commandData.command === 'setType') {
           this.searchText = commandData.type;
