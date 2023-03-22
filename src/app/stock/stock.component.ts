@@ -151,24 +151,26 @@ export class StockComponent {
   searchText = '';
 
   constructor(private router: Router) {
-  //  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     this.recognition = new webkitSpeechRecognition();
 
     this.recognition.onresult = (event: any) => {
       const result = event.results[event.resultIndex][0].transcript;
       console.log(result);
 
-      if (result.toLowerCase().includes('go to the article page')) {
-        this.navigateToArticle();
+     /* if (result.toLowerCase().includes('go to the article page')) {
+        this.router.navigate(['/article-grid']);
+      } */
+
+      //no optional words aloud at end of phrase, e.g. ((page|site) )? doesn't work
+      if (result.match(/^(go|switch|show me) (to )?(the )?article (information )?(page|site)$/i)) {
+        this.router.navigate(['/article-grid']);
       }
+      
+      
     };
 
     this.storeItems();
     this.sortedData = this.stockTable.slice();
-  }
-
-  navigateToArticle() {
-    this.router.navigate(['/article-grid']);
   }
 
   startRecognition() {
