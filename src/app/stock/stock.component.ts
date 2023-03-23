@@ -164,6 +164,12 @@ export class StockComponent {
       //no optional words aloud at end of phrase, e.g. ((page|site) )? doesn't work
       if (result.match(/^(go|switch|show me) (to )?(the )?article (information )?(page|site)$/i)) {
         this.router.navigate(['/article-grid']);
+      } 
+      else if (result.match(/^(go|switch|show me) (to )?(the )?goods (receipt )?(page|site)$/i)) {
+        this.router.navigate(['/goods-receiving-grid']);
+      }
+      else if (result.match(/^(go|switch|show me) (to )?(the )?order (page|site)$/i)) {
+        this.router.navigate(['/commission-grid']);
       }
       
       
