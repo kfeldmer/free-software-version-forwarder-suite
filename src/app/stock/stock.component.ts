@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
 
@@ -150,7 +150,7 @@ export class StockComponent {
 
   searchText = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cd: ChangeDetectorRef) {
     this.recognition = new webkitSpeechRecognition();
 
     this.recognition.onresult = (event: any) => {
@@ -170,6 +170,12 @@ export class StockComponent {
       }
       else if (result.match(/^(go|switch|show me) (to )?(the )?order (page|site)$/i)) {
         this.router.navigate(['/commission-grid']);
+      }
+      const searchMatch = result.match(/^(search for|find|look up)\s+(.+)/i);
+      if (searchMatch) {
+        const value = searchMatch[2];
+        this.searchText = value;
+        this.cd.detectChanges();
       }
       
       
