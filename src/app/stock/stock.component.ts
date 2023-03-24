@@ -182,7 +182,54 @@ export class StockComponent {
         this.articleNumber = articleNumber;
         this.cd.detectChanges();
       }
-
+      else if (result.match(/^(add|include) description\s+(.+)/i)) {
+        const description = result.match(/^(add|include) description\s+(.+)/i)[2];
+        this.description = description;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) batch number (\d+)/i)) {
+        const batch = result.match(/^(add|include) batch number (\d+)/i)[2];
+        this.batch = batch;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) variant\s+(.+)/i)) {
+        const variant = result.match(/^(add|include) variant\s+(.+)/i)[2];
+        this.variant = variant;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) weight (\d+(?:\.\d+)?)/i)) {
+        const weight = result.match(/^(add|include) weight (\d+(?:\.\d+)?)/i)[2];
+        this.weight = weight;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) location\s+(.+)/i)) {
+        const location = result.match(/^(add|include) location\s+(.+)/i)[2];
+        this.location = location;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) PID number (\d+)/i)) {
+        const pid = result.match(/^(add|include) PID number (\d+)/i)[2];
+        this.pid = pid;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) quantity (\d+)/i)) {
+        const quantity = result.match(/^(add|include) quantity (\d+)/i)[2];
+        this.quantity = quantity;
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(add|include) storing date\s+(.+)/i)) {
+        const storingDate = result.match(/^(add|include) storing date\s+(.+)/i)[2];
+        const dateComponents = storingDate.match(/^(\d+)[a-z]{2}\s+of\s+([a-z]+)\s+(\d{4})$/i);
+        if (dateComponents) {
+          const day = dateComponents[1].padStart(2, '0');
+          const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+          const month = (monthNames.indexOf(dateComponents[2].toLowerCase()) + 1).toString().padStart(2, '0');
+          const year = dateComponents[3];
+          const formattedDate = `${day}.${month}.${year}`;
+          this.storingDate = formattedDate;
+          this.cd.detectChanges();
+        }
+      }
     };
 
     this.storeItems();
