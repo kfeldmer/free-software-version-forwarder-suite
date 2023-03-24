@@ -171,14 +171,18 @@ export class StockComponent {
       else if (result.match(/^(go|switch|show me) (to )?(the )?order (page|site)$/i)) {
         this.router.navigate(['/commission-grid']);
       }
-      const searchMatch = result.match(/^(search for|find|look up)\s+(.+)/i);
-      if (searchMatch) {
-        const value = searchMatch[2];
+      else if (result.match(/^(search for|find|look up)\s+(.+)/i)) {
+        const value = result.match(/^(search for|find|look up)\s+(.+)/i)[2];
         this.searchText = value;
         this.cd.detectChanges();
       }
-      
-      
+      // new command for setting article number (only numbers work)
+      else if (result.match(/^(add|include) article number (\d+)/i)) {
+        const articleNumber = result.match(/^(add|include) article number (\d+)/i)[2];
+        this.articleNumber = articleNumber;
+        this.cd.detectChanges();
+      }
+
     };
 
     this.storeItems();
