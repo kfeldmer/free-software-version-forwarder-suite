@@ -230,6 +230,24 @@ export class StockComponent {
           this.cd.detectChanges();
         }
       }
+      else if (result.match(/^(add|save) item$/i)) {
+        let element:HTMLElement = document.getElementById('save') as HTMLElement;
+        element.click();
+      }
+      else if (result.match(/^(clear|delete) (the )?(items )?(in the )?form$/i)) {
+        this.clearForm();
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^(clear|empty) (the )?search bar$/i)) {
+        this.searchText = "";
+        this.cd.detectChanges();
+      }
+      else if (result.match(/^delete( the)?( item with)? index( number)? (\d+)$/i)) {
+        const index = result.match(/\d+/)[0];
+        this.deleteItem(index);
+        this.sortedData = this.stockTable.slice();
+        this.cd.detectChanges();
+      }
     };
 
     this.storeItems();
