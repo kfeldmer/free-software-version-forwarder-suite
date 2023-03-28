@@ -16,7 +16,7 @@ export interface StockTable {
   storingDate: string;
 }
 
-declare var webkitSpeechRecognition: any; // for Safari compatibility
+declare var webkitSpeechRecognition: any;
 
 /**
  * @title Sorting overview
@@ -233,6 +233,7 @@ export class StockComponent {
       else if (result.match(/^(add|save) item$/i)) {
         let element:HTMLElement = document.getElementById('save') as HTMLElement;
         element.click();
+        this.cd.detectChanges();
       }
       else if (result.match(/^(clear|delete) (the )?(items )?(in the )?form$/i)) {
         this.clearForm();
